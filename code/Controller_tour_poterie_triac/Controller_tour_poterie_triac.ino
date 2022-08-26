@@ -7,14 +7,7 @@ bool output_signed = false;
 
 FastPID myPID(Kp, Ki, Kd, Hz, output_bits, output_signed);
 
-const uint16_t period_LUT[512] = {109, 369, 479, 563, 634, 697, 754, 806, 855, 901, 944, 985, 1025, 1063, 1099, 1134, 1169, 1202, 1234, 1265, 1296, 1326, 1355, 1383, 1411, 1439, 1466, 1492, 1518, 1544, 1569, 1593, 1618, 1642, 1665, 1689, 1712, 1734, 1757, 1779, 1801, 1823, 1844, 1865, 1886, 1907, 1928, 1948, 1968, 1988, 2008, 2028, 2047, 2066, 2085, 2104, 2123, 2142, 2160, 2179, 2197, 2215, 2233, 2251, 2269, 2286, 2304, 2321, 2339, 2356, 2373, 2390, 2407, 2424, 2440, 2457, 2473, 2490, 2506, 2522, 2538, 2555, 2571, 2586, 2602, 2618, 2634, 2649, 2665, 2680, 2696, 2711, 2726, 2742, 2757, 2772, 2787, 2802, 2817, 2832, 2846, 2861, 2876, 2890, 2905, 2919, 2934, 2948, 2963, 2977, 2991, 3006, 3020, 3034, 3048, 3062, 3076, 3090, 3104, 3118, 3132, 3145, 3159, 3173, 3186, 3200, 3214, 3227, 3241, 3254, 3268, 3281, 3295, 3308, 3321, 3335, 3348, 3361, 3374, 3387, 3401, 3414, 3427, 3440, 3453, 3466, 3479, 3492, 3505, 3518, 3530, 3543, 3556, 3569, 3582, 3594, 3607, 3620, 3633, 3645, 3658, 3670, 3683, 3696, 3708, 3721, 3733, 3746, 3758, 3771, 3783, 3796, 3808, 3820, 3833, 3845, 3857, 3870, 3882, 3894, 3907, 3919, 3931, 3943, 3955, 3968, 3980, 3992, 4004, 4016, 4028, 4040, 4053, 4065, 4077, 4089, 4101, 4113, 4125, 4137, 4149, 4161, 4173, 4185, 4197, 4209, 4221, 4233, 4245, 4256, 4268, 4280, 4292, 4304, 4316, 4328, 4340, 4352, 4363, 4375, 4387, 4399, 4411, 4422, 4434, 4446, 4458, 4470, 4481, 4493, 4505, 4517, 4529, 4540, 4552, 4564, 4576, 4587, 4599, 4611, 4622, 4634, 4646, 4658, 4669, 4681, 4693, 4705, 4716, 4728, 4740, 4751, 4763, 4775, 4787, 4798, 4810, 4822, 4833, 4845, 4857, 4869, 4880, 4892, 4904, 4915, 4927, 4939, 4951, 4962, 4974, 4986, 4997, 5009, 5021, 5033, 5044, 5056, 5068, 5080, 5091, 5103, 5115, 5127, 5139, 5150, 5162, 5174, 5186, 5198, 5209, 5221, 5233, 5245, 5257, 5269, 5280, 5292, 5304, 5316, 5328, 5340, 5352, 5364, 5376, 5387, 5399, 5411, 5423, 5435, 5447, 5459, 5471, 5483, 5495, 5507, 5519, 5531, 5544, 5556, 5568, 5580, 5592, 5604, 5616, 5628, 5641, 5653, 5665, 5677, 5689, 5702, 5714, 5726, 5739, 5751, 5763, 5776, 5788, 5800, 5813, 5825, 5838, 5850, 5862, 5875, 5887, 5900, 5913, 5925, 5938, 5950, 5963, 5976, 5988, 6001, 6014, 6026, 6039, 6052, 6065, 6078, 6091, 6103, 6116, 6129, 6142, 6155, 6168, 6181, 6194, 6208, 6221, 6234, 6247, 6260, 6274, 6287, 6300, 6314, 6327, 6340, 6354, 6367, 6381, 6394, 6408, 6422, 6435, 6449, 6463, 6477, 6490, 6504, 6518, 6532, 6546, 6560, 6574, 6589, 6603, 6617, 6631, 6645, 6660, 6674, 6689, 6703, 6718, 6732, 6747, 6762, 6777, 6791, 6806, 6821, 6836, 6851, 6867, 6882, 6897, 6912, 6928, 6943, 6959, 6974, 6990, 7006, 7022, 7038, 7054, 7070, 7086, 7102, 7118, 7135, 7151, 7168, 7185, 7201, 7218, 7235, 7252, 7270, 7287, 7304, 7322, 7339, 7357, 7375, 7393, 7411, 7429, 7448, 7466, 7485, 7504, 7523, 7542, 7561, 7581, 7600, 7620, 7640, 7660, 7681, 7701, 7722, 7743, 7764, 7785, 7807, 7829, 7851, 7874, 7896, 7919, 7943, 7966, 7990, 8015, 8040, 8065, 8090, 8116, 8143, 8169, 8197, 8225, 8253, 8282, 8312, 8343, 8374, 8406, 8440, 8474, 8509, 8546, 8583, 8623, 8664, 8708, 8753, 8802, 8854, 8911, 8974, 9045, 9129, 9239, 9500};
-
-bool DEBUG = 1;
-
-const int analog_input = A2;
-const int control_pin = 9;
-const int digital_input = 2;
-const int speed_input = 3;
+//const int offset_LUT[256] = {0, 24, 49, 74, 99, 124, 149, 174, 199, 223, 248, 273, 298, 323, 348, 373, 398, 424, 449, 474, 499, 524, 549, 575, 600, 625, 651, 676, 701, 727, 753, 778, 804, 830, 855, 881, 907, 933, 959, 985, 1011, 1037, 1064, 1090, 1116, 1143, 1170, 1196, 1223, 1250, 1277, 1304, 1331, 1358, 1386, 1413, 1441, 1469, 1496, 1524, 1552, 1581, 1609, 1638, 1666, 1695, 1724, 1753, 1782, 1812, 1841, 1871, 1901, 1931, 1962, 1992, 2023, 2054, 2085, 2117, 2149, 2180, 2213, 2245, 2278, 2311, 2345, 2378, 2412, 2447, 2482, 2517, 2552, 2588, 2625, 2662, 2699, 2737, 2775, 2814, 2854, 2894, 2935, 2976, 3018, 3062, 3105, 3150, 3196, 3243, 3291, 3340, 3391, 3443, 3497, 3552, 3610, 3670, 3733, 3799, 3868, 3942, 4021, 4107, 4202, 4309, 4436, 4601, 5000, 5398, 5563, 5690, 5797, 5892, 5978, 6057, 6131, 6200, 6266, 6329, 6389, 6447, 6502, 6556, 6608, 6659, 6708, 6756, 6803, 6849, 6894, 6937, 6981, 7023, 7064, 7105, 7145, 7185, 7224, 7262, 7300, 7337, 7374, 7411, 7447, 7482, 7517, 7552, 7587, 7621, 7654, 7688, 7721, 7754, 7786, 7819, 7850, 7882, 7914, 7945, 7976, 8007, 8037, 8068, 8098, 8128, 8158, 8187, 8217, 8246, 8275, 8304, 8333, 8361, 8390, 8418, 8447, 8475, 8503, 8530, 8558, 8586, 8613, 8641, 8668, 8695, 8722, 8749, 8776, 8803, 8829, 8856, 8883, 8909, 8935, 8962, 8988, 9014, 9040, 9066, 9092, 9118, 9144, 9169, 9195, 9221, 9246, 9272, 9298, 9323, 9348, 9374, 9399, 9424, 9450, 9475, 9500, 9525, 9550, 9575, 9601, 9626, 9651, 9676, 9701, 9726, 9751, 9776, 9800, 9825, 9850, 9875, 9900, 9925, 9950, 9975};
 
 const int updaterate = 5;
 
@@ -25,26 +18,47 @@ public :
 // 800 µs for 15° = 0.02 sec per 360° wich means 50 turns per sec  (at the motor side) wich roughly corresponds to the 3600 turns per min displayed on the motor, and also to the main ac frequency.
 //SPEED : 25000 seems a good low speed value, 800 is the fastest i've seen. 
 
-  unsigned long max_delta = 25000; //min speed
-  unsigned long min_delta = 800; //max speed
+  unsigned int pulses_per_turn = 24;
+  float motor_ratio = 0.064;
+  
+  unsigned long max_delta = 25000; //min speed in microseconds
+  unsigned long min_delta = 800; //max speed in microseconds
 
-  unsigned long last_pulse = 0;
-  unsigned long current_pulse = max_delta;
+  int _input_pin = 3;// Input pin for the IR pulser
 
-  void pulse_handler(){
-    last_pulse = current_pulse;
-    current_pulse = micros();
+protected :
+
+  unsigned long rpm_conversion_constant = 60000000; // number of microseconds in a minute
+  unsigned long _last_pulse = 0;
+  unsigned long _current_pulse = max_delta;
+
+  unsigned long final_conversion_ratio = (unsigned long) rpm_conversion_constant / (unsigned long) (pulses_per_turn  * (float)(1 / motor_ratio));
+
+public :
+
+  IRPulser(int input_pin){
+    _input_pin = input_pin;
+    pinMode(_input_pin, INPUT);
   }
 
-  unsigned long get_value(){
+  void pulse_handler(){
+    _last_pulse = _current_pulse;
+    _current_pulse = micros();
+  }
+
+  unsigned long current_delta(){
     noInterrupts();
-    if (micros() - last_pulse > max_delta){
+    if (micros() - _last_pulse > max_delta){
       interrupts();
       return max_delta;
     }
-    unsigned long current_delta = current_pulse - last_pulse;
+    unsigned long temp_delta = _current_pulse - _last_pulse;
     interrupts();
-    return constrain(current_delta, min_delta,max_delta);
+    return constrain(temp_delta, min_delta,max_delta);
+  }
+
+  unsigned int current_rpm(){
+    return final_conversion_ratio / current_delta() ;
   }
 };
 
@@ -55,8 +69,23 @@ public :
   unsigned long trigger_start_memo = 0;
   bool enabled = false;
 
-  
+  int _input_pin = 2;//Pin to measure the crossing point of the 0V of the main AC line
+  int _output_pin = 9;//Pïn to control the gachette of the triac
+
+protected :
+
+  unsigned long ac_cross_memo = 0;
+  bool ac_cross_flag = false;
+
+public :
   int value = 1000;
+
+  Gachette(int input_pin, int output_pin){
+    _input_pin = input_pin;
+    _output_pin = output_pin;
+    pinMode(_output_pin, OUTPUT);
+    pinMode(_input_pin, INPUT_PULLUP);
+  }
 
   void set_value(int _value){
     value = constrain(_value,0,1000);
@@ -67,21 +96,33 @@ public :
   }
 
   void ac_sync_handler(){
+    ac_cross_memo = micros();
+    ac_cross_flag = true;
     if (enabled){
       trigg_available = false;
       Timer1.setPeriod(value);
       Timer1.start();
     }
   }
+
+  bool ac_cross_due(){
+    return ac_cross_flag;
+  }
+
+  unsigned long get_ac_cross(){
+    ac_cross_flag = false;
+    return ac_cross_memo;
+  }
   
 //    output = myPID.step(value, 200 );
 //    output = constrain(output,50,1024);
+
   
   void trigger(){
     if (trigg_available){
       trigger_start_memo = micros();
-      output_state = 1;
-      digitalWrite(control_pin, HIGH);
+      output_state = true;
+      digitalWrite(_output_pin, output_state);
     }
     else {
       trigg_available = true;
@@ -102,15 +143,98 @@ public :
    
    void release_trigger(){
     if (output_state && micros() - trigger_start_memo > 50){
-      digitalWrite(control_pin, LOW);
       output_state = false;
+      digitalWrite(_output_pin, output_state);
       Timer1.stop();
     }
   }
 };
 
-Gachette Gachette_object;
-IRPulser IRPulser_object;
+class SpeedPotentiometer{
+  
+public :
+
+  unsigned int value;
+  unsigned int read_interval = 50;//min interval between reads, else get value returns last stored value
+  unsigned int min_value = 800;
+  unsigned int max_value = 25000;
+  unsigned int multiplier = 27; //(25000-800 / 1024)
+  unsigned int offset = -1850; 
+  int _input_pin = A2;//Potentiometer for speed control 
+
+protected :
+  unsigned int pulses_per_turn = 24;
+  float motor_ratio = 0.064;
+  unsigned long _read_memo = 0;
+  unsigned long rpm_conversion_constant = 60000000; // number of microseconds in a minute
+
+  unsigned long final_conversion_ratio = (unsigned long) rpm_conversion_constant / (unsigned long) (pulses_per_turn  * (float)(1 / motor_ratio));
+
+public :
+
+  SpeedPotentiometer(int input_pin){
+    _input_pin = input_pin;
+    pinMode(_input_pin, INPUT);
+    Serial.print("final_conversion_ratio : ");Serial.println(final_conversion_ratio);
+  }
+
+  unsigned int read_value(){
+    return (unsigned int) analogRead(_input_pin);
+  }
+
+  unsigned int get_value(){
+    if (millis() - _read_memo > read_interval) {
+      unsigned int temp_value = read_value();
+      temp_value = (temp_value * multiplier) + offset;
+      value = constrain(temp_value, min_value, max_value);//outputs values in the same range as speed deltas readable by IR pulser
+      _read_memo = millis();
+    }
+    return value;
+  }
+
+  unsigned int current_rpm(){
+    return final_conversion_ratio / get_value();
+  }
+};
+
+class MemoTimer{
+
+public :
+
+  unsigned long interval = 50;
+  
+protected :
+  bool state = 1;
+  unsigned long _time_memo = 0;
+
+public :
+
+  MemoTimer(unsigned long _interval){
+    interval = _interval;
+    start();
+  }
+  
+  bool is_due(){
+    if (state && millis() - _time_memo > interval) {
+      _time_memo = millis();
+      return true;
+    }
+    return false;
+  }
+
+  void start(){
+    _time_memo = millis();
+    state = 1;
+  }
+
+  void stop(){
+    state = 0;
+  }
+};
+
+SpeedPotentiometer Potentiometer_object(A2);
+Gachette Gachette_object(2,9);
+IRPulser IRPulser_object(3);
 
 void gachette_trigger_handler(){
   Gachette_object.trigger();
@@ -124,56 +248,48 @@ void gachette_timer_handler(){
   Gachette_object.ac_sync_handler();
 }
 
-void setup() {
+void print_stuff(){
+  Serial.print(IRPulser_object.current_rpm());Serial.print("\t");
+  Serial.print(Potentiometer_object.current_rpm());Serial.print("\t");
+  //Serial.print(Gachette_object.get_value());Serial.print("\t");
+  if (Gachette_object.ac_cross_due()){
+    Serial.print(Gachette_object.get_ac_cross());
+  }
+  Serial.print("\n");
+}
+
+void setup() {  
   Serial.begin(500000);
   delay(10);
-//  Serial.print("Speed(µs/rev)");
-//  Serial.print("\t");
-//  Serial.print("Potentiometer");
+  Serial.print("Pulseur(rpm)");Serial.print("\t");
+  Serial.print("Potard(rpm)");Serial.print("\t");
+  Serial.println("AC_line(µs)");
 //  Serial.print("\t");
 //  Serial.println("OffTime(µs)");
 
-  pinMode(analog_input, INPUT);
-  pinMode(speed_input, INPUT);
-  pinMode(control_pin, OUTPUT);
-  pinMode(digital_input, INPUT_PULLUP);
-
-  attachInterrupt(digitalPinToInterrupt(digital_input), gachette_timer_handler, RISING);
-  attachInterrupt(digitalPinToInterrupt(speed_input), speed_pulse_handler, FALLING);
+  attachInterrupt(digitalPinToInterrupt(Gachette_object._input_pin), gachette_timer_handler, RISING);
+  attachInterrupt(digitalPinToInterrupt(IRPulser_object._input_pin), speed_pulse_handler, FALLING);
   
   Timer1.initialize(500);
   Timer1.stop();
   Timer1.attachInterrupt(gachette_trigger_handler);
+  Gachette_object.disable();
 }
 
 void loop() {
-  static unsigned long memo_print = 0;
-  static unsigned long memo_analog_check = 0;
-  static int localvalue = 0;
-    
-  if ( millis() - memo_analog_check > 100){
-    int temp_localvalue = analogRead(analog_input);
-    if (abs(temp_localvalue - localvalue) > 30) {
-      localvalue = temp_localvalue;
-    }
-    memo_analog_check = millis();
+
+  static MemoTimer print_timer(10);   
+  if ( print_timer.is_due() ){
+    print_stuff();
   }  
 
-  if (localvalue < 200){
-    Gachette_object.disable();
-  }
-  else {
-    Gachette_object.enable();
-  }
+//  if (localvalue < 200){
+//    Gachette_object.disable();
+//  }
+//  else {
+//    Gachette_object.enable();
+//  }
 
   Gachette_object.release_trigger();
 
-  if (millis() - memo_print > updaterate ){
-    Serial.print(IRPulser_object.get_value());
-    //Serial.print("\t");
-    //Serial.println(Gachette_object.get_value());
-    Serial.print("\t");
-    Serial.println(localvalue);
-    memo_print = millis();
-  }
 }
